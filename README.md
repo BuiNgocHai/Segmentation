@@ -22,7 +22,8 @@ Image-Segmentation on cityscapes-dataset
     + 12 -> leftImg8bit_demoVideo.zip (6.6GB) 
     + 28 -> gtBbox_cityPersons_trainval.zip (2.2MB)
  + See original article at : https://github.com/cemsaz/city-scapes-script
- 
+ + Dowload mix data: gdown https://drive.google.com/uc?id=1brsaFgxcr5VFB08npUbN3woR9OUMJFKo
+
  ## Model overview:
  + FCN
   ![image](https://user-images.githubusercontent.com/38074499/62730581-741e4d80-ba4a-11e9-9ef4-f35350a2a72f.png)

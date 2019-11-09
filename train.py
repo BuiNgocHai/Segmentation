@@ -33,7 +33,7 @@ except:
 model.summary()
 
 # Define callbacks
-weight_path = "pitmodel/pitmodel-{epoch:03d}-{val_dice_coef:.5f}.hdf5"
+weight_path = "pit_model/pitmodel-{epoch:03d}-{val_dice_coef:.5f}.hdf5"
 checkpoint = ModelCheckpoint(filepath=weight_path,
                              verbose=0,
                              monitor='val_dice_coef',
@@ -46,9 +46,9 @@ tensorboard = TensorBoard(log_dir="logs/unet{}".format(time.time()),
 train_check = TrainCheck(output_path='./img', model_name=model_name)
 
 # training
-history = model.fit_generator(data_generator('../city/data_mix.h5', TRAIN_BATCH, 'train'),
+history = model.fit_generator(data_generator('../city/data_mix2.h5', TRAIN_BATCH, 'train'),
                               steps_per_epoch=3475 // TRAIN_BATCH,
-                              validation_data=data_generator('../city/data_mix.h5', VAL_BATCH, 'val'),
+                              validation_data=data_generator('../city/data_mix2.h5', VAL_BATCH, 'val'),
                               validation_steps=500 // VAL_BATCH,
                               callbacks=[checkpoint, tensorboard],
                               epochs=2000,

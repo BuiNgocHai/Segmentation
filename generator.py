@@ -60,7 +60,7 @@ def get_data_gen_args(mode):
 # One hot encoding for y_img.
 def get_result_map(b_size, y_img):
     y_img = np.squeeze(y_img, axis=3)
-    result_map = np.zeros((b_size, 240, 320, 4))
+    result_map = np.zeros((b_size, 256, 320, 4))
 
     # For np.where calculation.
     person = (y_img == 24)
@@ -101,8 +101,8 @@ def data_generator(d_path, b_size, mode):
         for i in range(d_size):
             idx = shuffled_idx[i]
 
-            x.append(x_imgs[idx].reshape((240, 320, 3)))
-            y.append(y_imgs[idx].reshape((240, 320, 1)))
+            x.append(x_imgs[idx].reshape((256, 320, 3)))
+            y.append(y_imgs[idx].reshape((256, 320, 1)))
 
             if len(x) == b_size:
                 # Adapt ImageDataGenerator flow method for data augmentation.

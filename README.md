@@ -1,3 +1,14 @@
+# How to run 
+```bash
+mkdir city
+git clone https://github.com/BuiNgocHai/Segmentation.git
+cd city 
+dowload data from https://drive.google.com/file/d/1brsaFgxcr5VFB08npUbN3woR9OUMJFKo/view?usp=sharing
+cd ../Segmentation
+mkdir pit_model
+python train.py
+```
+
 # Image-Segmentation
 Image-Segmentation on cityscapes-dataset 
 + Dataset overview : https://www.cityscapes-dataset.com/dataset-overview

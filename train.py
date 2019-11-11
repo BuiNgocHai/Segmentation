@@ -1,5 +1,4 @@
 import os
-import matplotlib.pyplot as plt
 import argparse
 import time
 from keras.layers import Input

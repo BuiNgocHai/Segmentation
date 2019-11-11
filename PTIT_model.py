@@ -34,7 +34,7 @@ def build_ptit(shape, num_classes, lr_init, lr_decay,  alpha=1.0, include_top=Tr
     model = Model(inputs = mbl.input, outputs = fcn17)
 
     model.compile(optimizer=Adam(lr=lr_init, decay=lr_decay),
-                  loss='categorical_crossentropy',
-                  metrics=[focal_loss(alpha=.25, gamma=2)])
+                  loss=[focal_loss(alpha=.25, gamma=2)],
+                  metrics=[tf.keras.metrics.MeanIoU(num_classes=num_classes)])
     
     return model

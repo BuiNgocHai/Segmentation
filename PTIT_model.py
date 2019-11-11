@@ -15,8 +15,10 @@ def focal_loss(gamma=2., alpha=.25):
 		return -K.mean(alpha * K.pow(1. - pt_1, gamma) * K.log(pt_1)) - K.mean((1 - alpha) * K.pow(pt_0, gamma) * K.log(1. - pt_0))
 	return focal_loss_fixed
 
-def mean_iou(y_true, y_pred,num_classes):
-   return tf.metrics.mean_iou(y_true, y_pred, num_classes)[1]
+def mean_iou(num_classes):
+    def caculate(y_true, y_pred):
+        return tf.metrics.mean_iou(y_true, y_pred, num_classes)[1]
+    return caculate
 
 
 def build_ptit(shape, num_classes, lr_init, lr_decay,  alpha=1.0, include_top=True, weights=None):

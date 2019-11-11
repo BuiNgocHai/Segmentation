@@ -17,7 +17,11 @@ def focal_loss(gamma=2., alpha=.25):
 
 def mean_iou(num_classes):
     def caculate(y_true, y_pred):
-        return tf.metrics.mean_iou(y_true, y_pred, num_classes)[1]
+        score, up_opt = tf.metrics.mean_iou(y_true, y_pred, num_classes)
+        K.get_session().run(tf.local_variables_initializer())
+        with tf.control_dependencies([up_opt]):
+            score = tf.identity(score)
+        return score
     return caculate
 
 

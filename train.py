@@ -32,10 +32,10 @@ except:
 model.summary()
 
 # Define callbacks
-weight_path = "pit_model/pitmodel-{epoch:03d}-{val_focal_loss_fixed:.5f}.hdf5"
+weight_path = "pit_model/pitmodel-{epoch:03d}-{val_iou:.5f}.hdf5"
 checkpoint = ModelCheckpoint(filepath=weight_path,
                              verbose=0,
-                             monitor='val_focal_loss_fixed',
+                             monitor='val_iou',
                              save_best_only=False,
                              save_weights_only=False, mode='auto', period=1)
 

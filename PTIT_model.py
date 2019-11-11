@@ -15,15 +15,9 @@ def focal_loss(gamma=2., alpha=.25):
 		return -K.mean(alpha * K.pow(1. - pt_1, gamma) * K.log(pt_1)) - K.mean((1 - alpha) * K.pow(pt_0, gamma) * K.log(1. - pt_0))
 	return focal_loss_fixed
 
-def IoU(y_true, y_pred):
-    
-    # Note: the type float32 is very important. It must be the same type as the output from
-    # the python function above or you too may spend many late night hours 
-    # trying to debug and almost give up.
-    
-    iou = tf.py_func(calculate_iou, [y_true, y_pred], tf.float32)
+def mean_iou(y_true, y_pred,num_classes):
+   return tf.metrics.mean_iou(y_true, y_pred, num_classes)[1]
 
-    return iou
 
 def build_ptit(shape, num_classes, lr_init, lr_decay,  alpha=1.0, include_top=True, weights=None):
     mbl = applications.mobilenet.MobileNet(weights=None, include_top=False, input_shape=shape)
@@ -45,6 +39,6 @@ def build_ptit(shape, num_classes, lr_init, lr_decay,  alpha=1.0, include_top=Tr
 
     model.compile(optimizer=Adam(lr=lr_init, decay=lr_decay),
                   loss=[focal_loss(alpha=.25, gamma=2)],
-                  metrics=[IoU])
+                  metrics=[mean_iou(num_classes=num_classes)])
     
     return model

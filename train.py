@@ -32,14 +32,14 @@ except:
 model.summary()
 
 # Define callbacks
-weight_path = "pit_model/pitmodel-{epoch:03d}-{val_iou:.5f}.hdf5"
+weight_path = "train_121119/pit_model/pitmodel-{epoch:03d}-{val_iou:.5f}.hdf5"
 checkpoint = ModelCheckpoint(filepath=weight_path,
                              verbose=0,
                              monitor='val_iou',
                              save_best_only=False,
                              save_weights_only=False, mode='auto', period=1)
 
-tensorboard = TensorBoard(log_dir="logs/unet{}".format(time.time()),
+tensorboard = TensorBoard(log_dir="train_121119/logs/unet{}".format(time.time()),
                               batch_size=TRAIN_BATCH, write_images=True)
 
 train_check = TrainCheck(output_path='./img', model_name=model_name)

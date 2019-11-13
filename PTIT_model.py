@@ -15,6 +15,9 @@ def focal_loss(gamma=2., alpha=.25):
 		return -K.mean(alpha * K.pow(1. - pt_1, gamma) * K.log(pt_1)) - K.mean((1 - alpha) * K.pow(pt_0, gamma) * K.log(1. - pt_0))
 	return focal_loss_fixed
 
+def dice_coef(y_true, y_pred):
+    return (2. * K.sum(y_true * y_pred) + 1.) / (K.sum(y_true) + K.sum(y_pred) + 1.)
+
 def mean_iou(num_classes):
     def iou(y_true, y_pred):
         score, up_opt = tf.metrics.mean_iou(y_true, y_pred, num_classes)
@@ -44,7 +47,7 @@ def build_ptit(shape, num_classes, lr_init, lr_decay,  alpha=1.0, include_top=Tr
     model = Model(inputs = mbl.input, outputs = fcn17)
 
     model.compile(optimizer=Adam(lr=lr_init, decay=lr_decay),
-                  loss=[focal_loss(alpha=.25, gamma=2)],
-                  metrics=[mean_iou(num_classes=num_classes)])
+                  loss='categorical_crossentropy',
+                  metrics=[mean_iou(num_classes=num_classes), dice_coef])
     
     return model

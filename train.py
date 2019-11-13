@@ -11,9 +11,9 @@ from generator import data_generator
 
 model_name = "mobile_net"
 
-TRAIN_BATCH = 12
-VAL_BATCH = 1
-lr_init = 1e-4
+TRAIN_BATCH = 64
+VAL_BATCH = 64
+lr_init = 1e-3
 lr_decay = 5e-4
 vgg_path = None
 

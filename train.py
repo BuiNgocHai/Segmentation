@@ -23,7 +23,7 @@ labels = ['background','road','traffic','car']
 model = build_ptit((256,320,3), num_classes=len(labels),
                    lr_init=lr_init, lr_decay=lr_decay)
 try:
-    model.load_weights('mobile/mobile-032-0.88355.hdf5')
+    model.load_weights('pit_model/mobile-032-0.88355.hdf5')
     print("...Previous weight data...")
 except:
     print("...New weight data...")
@@ -32,23 +32,23 @@ except:
 model.summary()
 
 # Define callbacks
-weight_path = "train_121119/pit_model/pitmodel-{epoch:03d}-{val_iou:.5f}.hdf5"
+weight_path = "pit_model/pitmodel-{epoch:03d}-{val_iou:.5f}.hdf5"
 checkpoint = ModelCheckpoint(filepath=weight_path,
                              verbose=0,
                              monitor='val_iou',
                              save_best_only=False,
                              save_weights_only=False, mode='auto', period=1)
 
-tensorboard = TensorBoard(log_dir="train_121119/logs/unet{}".format(time.time()),
+tensorboard = TensorBoard(log_dir="/logs/pitmodel{}".format(time.time()),
                               batch_size=TRAIN_BATCH, write_images=True)
 
 train_check = TrainCheck(output_path='./img', model_name=model_name)
 
 # training
-history = model.fit_generator(data_generator('../city/data_mix2.h5', TRAIN_BATCH, 'train'),
-                              steps_per_epoch=88299 // TRAIN_BATCH,
-                              validation_data=data_generator('../city/data_mix2.h5', VAL_BATCH, 'val'),
-                              validation_steps=500 // VAL_BATCH,
+history = model.fit_generator(data_generator('../city/data_mix3.h5', TRAIN_BATCH, 'train'),
+                              steps_per_epoch=95299 // TRAIN_BATCH,
+                              validation_data=data_generator('../city/data_mix3.h5', VAL_BATCH, 'val'),
+                              validation_steps=1500 // VAL_BATCH,
                               callbacks=[checkpoint, tensorboard],
                               epochs=2000,
                               verbose=1,initial_epoch = 1)

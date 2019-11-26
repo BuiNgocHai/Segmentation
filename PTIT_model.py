@@ -44,6 +44,7 @@ def build_ptit(shape, num_classes, lr_init, lr_decay,  alpha=1.0, include_top=Tr
     # Upsample again
     fcn17 = Conv2DTranspose(filters=4, kernel_size=16, strides=(8, 8), padding='same', name="fcn17", activation="softmax")(fcn16_skip_connected)
 
+    
     model = Model(inputs = mbl.input, outputs = fcn17)
 
     model.compile(optimizer=Adam(lr=lr_init, decay=lr_decay),

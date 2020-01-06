@@ -32,23 +32,23 @@ except:
 model.summary()
 
 # Define callbacks
-weight_path = "pit_model/pitmodel-{epoch:03d}-{val_iou:.5f}.hdf5"
+weight_path = "model/pitmodel_1road-{epoch:03d}-{val_iou:.5f}.hdf5"
 checkpoint = ModelCheckpoint(filepath=weight_path,
                              verbose=0,
                              monitor='val_iou',
                              save_best_only=False,
                              save_weights_only=False, mode='auto', period=1)
 
-tensorboard = TensorBoard(log_dir="/logs/pitmodel{}".format(time.time()),
+tensorboard = TensorBoard(log_dir="/logs/pitmodel_1road{}".format(time.time()),
                               batch_size=TRAIN_BATCH, write_images=True)
 
 train_check = TrainCheck(output_path='./img', model_name=model_name)
 
 # training
-history = model.fit_generator(data_generator('../city/data_mix3.h5', TRAIN_BATCH, 'train'),
-                              steps_per_epoch=95299 // TRAIN_BATCH,
-                              validation_data=data_generator('../city/data_mix3.h5', VAL_BATCH, 'val'),
-                              validation_steps=1500 // VAL_BATCH,
-                              callbacks=[checkpoint, tensorboard],
+history = model.fit_generator(data_generator('../city/data_mix4_1road.h5', TRAIN_BATCH, 'train'),
+                              steps_per_epoch=92130 // TRAIN_BATCH,
+                              validation_data=data_generator('../city/data_mix4_1road.h5', VAL_BATCH, 'val'),
+                              validation_steps=1525 // VAL_BATCH,
+                              callbacks=[checkpoint,train_check, tensorboard],
                               epochs=2000,
                               verbose=1,initial_epoch = 1)

@@ -14,7 +14,7 @@ class TrainCheck(Callback):
         self.model_name = model_name
 
     def result_map_to_img(self, res_map):
-        img = np.zeros((240, 320, 3), dtype=np.uint8)
+        img = np.zeros((320, 256, 3), dtype=np.uint8)
         res_map = np.squeeze(res_map)
 
         argmax_idx = np.argmax(res_map, axis=2)
@@ -51,7 +51,7 @@ class TrainCheck(Callback):
     def visualize(self, path):
         img = cv2.imread(path)
         start_time = time.time()
-        img = cv2.resize(img,(320,240))
+        img = cv2.resize(img,(320,256))
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         img = np.expand_dims(img, 0)
         img = img / 127.5 - 1
@@ -60,4 +60,6 @@ class TrainCheck(Callback):
         res_img = self.result_map_to_img(pred[0])
         print('Time: ', time.time() - start_time) 
         out_final = self.output_path + path[3:-9]
-        cv2.imwrite(os.path.join(out_final + '/30.10/', self.model_name + '_epoch_' + str(self.epoch) + '.png'), res_img)
+        if not os.path.isdir(out_final + '/06.01_1road/'):
+            os.mkdir(out_final + '/06.01_1road/')
+        cv2.imwrite(os.path.join(out_final + '/06.01_1road/', self.model_name + '_epoch_' + str(self.epoch) + '.png'), res_img)

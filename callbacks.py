@@ -14,7 +14,7 @@ class TrainCheck(Callback):
         self.model_name = model_name
 
     def result_map_to_img(self, res_map):
-        img = np.zeros((320, 256, 3), dtype=np.uint8)
+        img = np.zeros((256, 320, 3), dtype=np.uint8)
         res_map = np.squeeze(res_map)
 
         argmax_idx = np.argmax(res_map, axis=2)

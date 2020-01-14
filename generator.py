@@ -63,14 +63,14 @@ def get_result_map(b_size, y_img):
     result_map = np.zeros((b_size, 256, 320, 4))
 
     # For np.where calculation.
-    person = (y_img == 24)
+    #person = (y_img == 24)
     car = (y_img == 26)
-    road = (y_img == 7)
-    traffic = (y_img == 20)
-    pavem = (y_img == 22)
+    #road = (y_img == 7)
+    #traffic = (y_img == 20)
+    #pavem = (y_img == 22)
     line_1 = (y_img == 180)
     line_2 = (y_img == 142)
-    background = np.logical_not(road + car + traffic)
+    background = np.logical_not(line_1 + car + line_2)
 
     result_map[:, :, :, 0] = np.where(background, 1, 0)
     result_map[:, :, :, 1] = np.where(line_1, 1, 0)

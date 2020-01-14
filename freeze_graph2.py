@@ -41,12 +41,12 @@ def freeze_session(session, keep_var_names=None, output_names=None, clear_device
 
 model = build_ptit((256,320,3), num_classes=4,
                    lr_init=1e-3, lr_decay=5e-4)
-model.load_weights('/home/vicker/Downloads/pitmodel-034-0.48831.hdf5')
+model.load_weights('/home/vicker/Downloads/pitmodel_1road_pretrain-043-0.51519.hdf5')
 
 frozen_graph = freeze_session(K.get_session(),
                               output_names=[out.op.name for out in model.outputs])
 
-tf.train.write_graph(frozen_graph, "model", "tf_model.pb", as_text=False)
+tf.train.write_graph(frozen_graph, "model", "model_pre_simu.pb", as_text=False)
 
 
 

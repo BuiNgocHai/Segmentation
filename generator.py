@@ -68,13 +68,14 @@ def get_result_map(b_size, y_img):
     road = (y_img == 7)
     traffic = (y_img == 20)
     pavem = (y_img == 22)
-
+    line_1 = (y_img == 180)
+    line_2 = (y_img == 142)
     background = np.logical_not(road + car + traffic)
 
     result_map[:, :, :, 0] = np.where(background, 1, 0)
-    result_map[:, :, :, 1] = np.where(road, 1, 0)
+    result_map[:, :, :, 1] = np.where(line_1, 1, 0)
     result_map[:, :, :, 2] = np.where(car, 1, 0)
-    result_map[:, :, :, 3] = np.where(traffic, 1, 0)
+    result_map[:, :, :, 3] = np.where(line_2, 1, 0)
 
     return result_map
 
